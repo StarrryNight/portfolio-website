@@ -113,7 +113,7 @@ export function Experiences() {
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p>{exp.description}</p>
+                  {exp.description}
                   <div className="flex flex-wrap gap-2">
                     {exp.skills.map((skill, i) => (
                       <Badge key={i} variant="secondary" className="bg-gray-50 text-gray-800 border border-gray-200">
