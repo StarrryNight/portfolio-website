@@ -9,55 +9,82 @@ export function Experiences() {
     {
       title: "Exotic Filament Researcher",
       company: "UBC Rapid",
-      period: "2018 - 2021",
-      description:
-      <ul className="space-y-3 ">
+      period: "2024-2025",
+      description: (
+        <ul className="space-y-3 ">
           <li>
-            {'\u2022'}  Generated scientific reports on several exotic 3D printing filaments. Compiled findings of material properties, tensile test properties, and suggested optimal printing parameters for future use.
+            {"\u2022"} Generated scientific reports on several exotic 3D
+            printing filaments. Compiled findings of material properties,
+            tensile test properties, and suggested optimal printing parameters
+            for future use.
           </li>
           <li>
-            {'\u2022'}  Performed tensile tests on exotic materials in a student lab, including uniaxial tensile testing, 3-point bending tests etc
+            {"\u2022"} Performed tensile tests on exotic materials in a student
+            lab, including uniaxial tensile testing, 3-point bending tests etc.
           </li>
           <li>
-            {'\u2022'}  Adhered to ASTM standards (American Society for Testing and Materials) for scientific report generation.
+            {"\u2022"} Adhered to ASTM standards (American Society for Testing
+            and Materials) for scientific report generation.
           </li>
-      </ul>,
-      skills: ["ASTM", "Lab Experience","Researching", "Academic Writing"],
+        </ul>
+      ),
+      skills: ["ASTM", "Lab Experience", "Researching", "Academic Writing"],
     },
     {
       title: "Modelling Team Member",
       company: "UBC Rapid",
       period: "2024-2025",
-      description:
+      description: (
         <ul className="space-y-3 ">
           <li>
-            {'\u2022'}  Fulfilled printing and modeling requests from several UBC affiliated organizations.
+            {"\u2022"} Fulfilled printing and modeling requests from several UBC
+            affiliated organizations.
           </li>
           <li>
-            {'\u2022'}  Assisted the UBC computer science department to produce 40+ camera holders for monitoring purposes.
+            {"\u2022"} Assisted the UBC computer science department to produce
+            40+ camera holders for monitoring purposes.
           </li>
           <li>
-            {'\u2022'}  Participated and communicated during meetings with clients.
+            {"\u2022"} Participated and communicated during meetings with
+            clients.
           </li>
-      </ul>,
+        </ul>
+      ),
       skills: ["CAD", "SOLIDWORKS", "3D-Printing"],
+    },
+    {
+      title: "Web design member",
+      company: "UBC Rapid",
+      period: "2024",
+      description: (
+        <ul className="space-y-3 ">
+          <li>
+            {"\u2022"} Helped solved issues on the UBC Rapid website
+          </li>
+        </ul>
+      ),
+      skills: ["React", "Web dev"],
     },
     {
       title: "Java/Python Instructor",
       company: "CodingPals.org",
       period: "2021-2023",
-      description:
+      description: (
         <ul className="space-y-3 ">
           <li>
-            {'\u2022'}  Taught over 50 high school students programming, level ranging from introduction to competitive
+            {"\u2022"} Taught over 50 high school students programming, level
+            ranging from introduction to competitive
           </li>
           <li>
-            {'\u2022'}  Was commended as one of the best instructors near the end of the term, actively improving the curriculum and providing genuine support.
+            {"\u2022"} Was commended as one of the best instructors near the end
+            of the term, actively improving the curriculum and providing genuine
+            support.
           </li>
-      </ul>,
+        </ul>
+      ),
       skills: ["Python", "Java", "Competitive Programming", "Communication"],
     },
-  ]
+  ];
 
 
 

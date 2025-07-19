@@ -6,11 +6,32 @@ import { Badge } from "@/components/ui/badge"
 
 export function AboutMe() {
   const skills = [
-    { category: "Frontend", items: ["React", "Next.js", "Vue", "Angular", "Tailwind CSS", "SASS"] },
-    { category: "Backend", items: ["Node.js", "Express", "Django", "Flask", "GraphQL", "REST API"] },
-    { category: "Database", items: ["MongoDB", "PostgreSQL", "MySQL", "Firebase", "Supabase"] },
-    { category: "DevOps", items: ["Docker", "AWS", "Vercel", "CI/CD", "Git", "GitHub Actions"] },
-  ]
+    {
+      category: "Web dev",
+      items: [
+        "React",
+        "Next.js",
+        "Reactflow",
+        "Tailwind CSS",
+        "CSS",
+        "Node.js",
+        "fastAPI",
+        "REST API",
+      ],
+    },
+    {
+      category: "Machine Learning",
+      items: ["Pytorch", "Sklearn", "Keras", "Opencv", "Tensorflow"],
+    },
+    {
+      category: "Hardware",
+      items: ["Circuitry", "3D printing", "Printer maintenence"],
+    },
+    {
+      category: "Dev ops",
+      items: ["Vercal", "Git", "CAD", "SOLIDWORKS", "Cura"],
+    },
+  ];
 
   return (
     <section id="about" className="py-20 relative">
@@ -47,22 +68,19 @@ export function AboutMe() {
                 </p>
 
                 <p className="text-lg">
-                  After graduating with a degree in Computer Science from Stanford University, I worked at several tech
-                  startups before transitioning to freelance work, where I've had the opportunity to work with clients
-                  across various industries.
+                  I am currently studying Engineering Physics at UBC. I am a part of student groups that specailizes in engineering designs,
+                  where I have the chance to gain industrial experiences and work with clients.
                 </p>
 
                 <p className="text-lg">
                   I specialize in building{" "}
-                  <span className="text-amber-600 font-medium">responsive, accessible web applications</span> using
+                  <span className="text-amber-600 font-medium">python software, app frontends, and deep learning projects</span> using
                   modern JavaScript frameworks. I'm passionate about clean code, user experience, and staying on top of
                   the latest web technologies.
                 </p>
 
                 <p className="text-lg">
-                  When I'm not coding, you can find me hiking in the mountains, reading science fiction, or
-                  experimenting with new cooking recipes. I believe in continuous learning and am currently exploring
-                  machine learning and AI integration in web applications.
+                  When I'm not coding, you can find me playing music, playing soccer, or chilling with my friends.
                 </p>
               </div>
 
@@ -121,7 +139,7 @@ export function AboutMe() {
                       <div className="space-y-3">
                         <div>
                           <h4 className="font-medium">University of British Columbia</h4>
-                          <p className="text-sm text-muted-foreground">BS in Applied Science, 2024-Present</p>
+                          <p className="text-sm text-muted-foreground">BASC in Engineering Physics, 2024-Present</p>
                         </div>
                       </div>
                     </div>

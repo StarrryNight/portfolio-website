@@ -88,7 +88,7 @@ export function Introduction() {
               transition={{ delay: 0.3, duration: 0.5 }}
               className="text-muted-foreground text-lg max-w-md"
             >
-              I am passionate about using physics, software, and artificial intelligence to tackle real-life problems
+              Software, AI, robotics, physics
             </motion.p>
 
             <motion.div
