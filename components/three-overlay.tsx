@@ -26,8 +26,17 @@ export function ThreeOverlay() {
   // Store scene and camera references for click effect
   const sceneRef = useRef<THREE.Scene | null>(null)
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null)
+  
+  // Store pending click effects
+  const clickEffectsRef = useRef<Array<{position: THREE.Vector3, timestamp: number}>>([])
+  
+  // Track if component is mounted to prevent animation during cleanup
+  const mountedRef = useRef(true)
 
   useEffect(() => {
+    // Set mounted flag
+    mountedRef.current = true
+    
     // Three.js setup
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
@@ -41,6 +50,17 @@ export function ThreeOverlay() {
     renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.setClearColor(0x000000, 0) // Transparent background
 
+    // Ensure canvas is positioned correctly
+    renderer.domElement.style.position = 'absolute'
+    renderer.domElement.style.top = '0'
+    renderer.domElement.style.left = '0'
+    renderer.domElement.style.right = '0'
+    renderer.domElement.style.bottom = '0'
+    renderer.domElement.style.width = '100%'
+    renderer.domElement.style.height = '100%'
+    renderer.domElement.style.pointerEvents = 'none'
+    renderer.domElement.style.zIndex = '0'
+
     // Append renderer to the container
     if (threeContainerRef.current) {
       threeContainerRef.current.appendChild(renderer.domElement)
@@ -48,6 +68,7 @@ export function ThreeOverlay() {
 
     // Geometry for particles - smaller for elegance
     const geometry = new THREE.BoxGeometry(0.12, 0.12, 0.12)
+    const burstGeometry = new THREE.BoxGeometry(0.08, 0.08, 0.08)
 
     // Light - softer light for the elegant theme
     const light = new THREE.PointLight(0xffffff, 1, 500)
@@ -73,33 +94,70 @@ export function ThreeOverlay() {
 
     // Handle window resize
     const handleResize = () => {
+      if (!mountedRef.current) return
       renderer.setSize(window.innerWidth, window.innerHeight)
       camera.aspect = window.innerWidth / window.innerHeight
       camera.updateProjectionMatrix()
+      
+      // Ensure canvas maintains proper positioning after resize
+      renderer.domElement.style.width = '100%'
+      renderer.domElement.style.height = '100%'
     }
 
     // Handle mouse movement
     const handleMouseMove = (event: MouseEvent) => {
+      if (!mountedRef.current) return
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1
       mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
       rangeX.x = mouse.x - 0.25
       rangeY.x = mouse.y - 0.25
     }
 
-    // Click effect handler
+    // Click effect handler - now just stores the click for processing in animate loop
     const handleClick = (event: MouseEvent) => {
+      if (!mountedRef.current) return
+      
       // Convert mouse position to 3D coordinates
       const clickMouse = new THREE.Vector2(
         (event.clientX / window.innerWidth) * 2 - 1,
         -(event.clientY / window.innerHeight) * 2 + 1,
       )
 
-      // Create burst effect
-      createBurstEffect(clickMouse, scene, camera)
+      // Calculate 3D position from click coordinates
+      const raycaster = new THREE.Raycaster()
+      raycaster.setFromCamera(clickMouse, camera)
+
+      // Create a plane at the camera's near plane distance
+      const nearPlane = new THREE.Plane(new THREE.Vector3(0, 0, -1), camera.near)
+      const burstPosition = new THREE.Vector3()
+      
+      // Find intersection with the near plane
+      raycaster.ray.intersectPlane(nearPlane, burstPosition)
+      
+      // If no intersection, use a simple calculation
+      if (!burstPosition || isNaN(burstPosition.x)) {
+        // Simple fallback: calculate position based on click coordinates
+        const fov = camera.fov * (Math.PI / 180)
+        const aspect = camera.aspect
+        const distance = 2
+        
+        const x = Math.tan(fov / 2) * aspect * distance * clickMouse.x
+        const y = Math.tan(fov / 2) * distance * clickMouse.y
+        
+        burstPosition.set(x, y, -distance)
+      }
+
+      // Store the click effect for processing in the animate loop
+      clickEffectsRef.current.push({
+        position: burstPosition.clone(),
+        timestamp: Date.now()
+      })
     }
 
-    // Animation loop
+    // Animation loop - now handles both particle generation and click effects
     const animate = () => {
+      if (!mountedRef.current) return
+      
       requestAnimationFrame(animate)
 
       // Create new particles based on frequency
@@ -142,9 +200,11 @@ export function ThreeOverlay() {
           delay: 1,
           ease: "expo.out",
           onComplete: () => {
-            scene.remove(cube)
-            cube.geometry.dispose()
-            material.dispose()
+            if (mountedRef.current && scene.children.includes(cube)) {
+              scene.remove(cube)
+              cube.geometry.dispose()
+              material.dispose()
+            }
           },
         })
 
@@ -158,7 +218,102 @@ export function ThreeOverlay() {
         })
       }
 
-      renderer.render(scene, camera)
+      // Process click effects
+      const currentTime = Date.now()
+      const clickEffects = clickEffectsRef.current
+      
+      for (let i = clickEffects.length - 1; i >= 0; i--) {
+        const effect = clickEffects[i]
+        
+        // Only process effects that are recent (within 100ms)
+        if (currentTime - effect.timestamp < 100) {
+          // Create burst particles
+          const particleCount = 30
+          
+          for (let j = 0; j < particleCount; j++) {
+            const color = LIGHT_PALETTE[Math.floor(Math.random() * LIGHT_PALETTE.length)]
+            
+            const material = new THREE.MeshPhongMaterial({
+              color: new THREE.Color(color),
+              transparent: true,
+              opacity: 0.7,
+              shininess: 30,
+            })
+
+            const particle = new THREE.Mesh(burstGeometry, material)
+            particle.position.copy(effect.position)
+            scene.add(particle)
+
+            // Random direction for explosion
+            const theta = Math.random() * Math.PI * 2
+            const phi = Math.random() * Math.PI
+            const radius = 0.6 + Math.random() * 1.2
+
+            const targetX = effect.position.x + radius * Math.sin(phi) * Math.cos(theta)
+            const targetY = effect.position.y + radius * Math.sin(phi) * Math.sin(theta)
+            const targetZ = effect.position.z + radius * Math.cos(phi)
+
+            // Animate explosion
+            gsap.to(particle.position, {
+              x: targetX,
+              y: targetY,
+              z: targetZ,
+              duration: 0.9 + Math.random() * 0.5,
+              ease: "power2.out",
+            })
+
+            // Scale up slightly then down
+            const maxScale = 1.3 + Math.random()
+            gsap.to(particle.scale, {
+              x: maxScale,
+              y: maxScale,
+              z: maxScale,
+              duration: 0.3,
+              ease: "power1.out",
+              onComplete: () => {
+                gsap.to(particle.scale, {
+                  x: 0.01,
+                  y: 0.01,
+                  z: 0.01,
+                  duration: 0.6,
+                  delay: 0.2,
+                  ease: "power1.in",
+                })
+              },
+            })
+
+            // Fade out and cleanup
+            gsap.to(material, {
+              opacity: 0,
+              duration: 0.8,
+              delay: 0.3,
+              ease: "power1.in",
+              onComplete: () => {
+                if (mountedRef.current && scene.children.includes(particle)) {
+                  scene.remove(particle)
+                  material.dispose()
+                }
+              },
+            })
+
+            // Add rotation
+            gsap.to(particle.rotation, {
+              x: Math.random() * Math.PI * 2,
+              y: Math.random() * Math.PI * 2,
+              z: Math.random() * Math.PI * 2,
+              duration: 1.5,
+              ease: "power1.inOut",
+            })
+          }
+          
+          // Remove this effect from the queue
+          clickEffects.splice(i, 1)
+        }
+      }
+
+      if (mountedRef.current) {
+        renderer.render(scene, camera)
+      }
     }
 
     // Start animation
@@ -171,6 +326,9 @@ export function ThreeOverlay() {
 
     // Cleanup
     return () => {
+      // Set mounted flag to false to stop animation
+      mountedRef.current = false
+      
       window.removeEventListener("resize", handleResize)
       window.removeEventListener("mousemove", handleMouseMove)
       window.removeEventListener("click", handleClick)
@@ -181,115 +339,15 @@ export function ThreeOverlay() {
 
       renderer.dispose()
       geometry.dispose()
+      burstGeometry.dispose()
       scene.clear()
 
       // Clear references
       sceneRef.current = null
       cameraRef.current = null
+      clickEffectsRef.current = []
     }
   }, [frequency, range])
-
-  // Function to create burst effect
-  const createBurstEffect = (clickPosition: THREE.Vector2, scene: THREE.Scene, camera: THREE.PerspectiveCamera) => {
-    // Create a raycaster to get 3D position from click
-    const raycaster = new THREE.Raycaster()
-    raycaster.setFromCamera(clickPosition, camera)
-
-    // Calculate a position for the burst (about 3 units in front of camera)
-    const burstPosition = new THREE.Vector3()
-    raycaster.ray.at(3, burstPosition)
-
-    // Create particles for the burst
-    const particleCount = 30 // More particles for a richer effect
-
-    // Use smaller particles for elegance
-    const burstGeometry = new THREE.BoxGeometry(0.08, 0.08, 0.08)
-
-    // Create a group of particles with different colors from the palette
-    for (let i = 0; i < particleCount; i++) {
-      // Select color from light palette
-      const color = LIGHT_PALETTE[Math.floor(Math.random() * LIGHT_PALETTE.length)]
-
-      const material = new THREE.MeshPhongMaterial({
-        color: new THREE.Color(color),
-        transparent: true,
-        opacity: 0.7,
-        shininess: 30,
-      })
-
-      const particle = new THREE.Mesh(burstGeometry, material)
-
-      // Set initial position at click point
-      particle.position.copy(burstPosition)
-
-      // Add to scene
-      scene.add(particle)
-
-      // Random direction for explosion - more organized pattern
-      const theta = Math.random() * Math.PI * 2
-      const phi = Math.random() * Math.PI
-
-      // All particles travel similar distances
-      const radius = 0.6 + Math.random() * 1.2
-
-      const targetX = burstPosition.x + radius * Math.sin(phi) * Math.cos(theta)
-      const targetY = burstPosition.y + radius * Math.sin(phi) * Math.sin(theta)
-      const targetZ = burstPosition.z + radius * Math.cos(phi)
-
-      // Animate explosion
-      gsap.to(particle.position, {
-        x: targetX,
-        y: targetY,
-        z: targetZ,
-        duration: 0.9 + Math.random() * 0.5,
-        ease: "power2.out",
-      })
-
-      // Scale up slightly then down
-      const maxScale = 1.3 + Math.random()
-      gsap.to(particle.scale, {
-        x: maxScale,
-        y: maxScale,
-        z: maxScale,
-        duration: 0.3,
-        ease: "power1.out",
-        onComplete: () => {
-          gsap.to(particle.scale, {
-            x: 0.01,
-            y: 0.01,
-            z: 0.01,
-            duration: 0.6,
-            delay: 0.2,
-            ease: "power1.in",
-          })
-        },
-      })
-
-      // Fade out and cleanup
-      gsap.to(material, {
-        opacity: 0,
-        duration: 0.8,
-        delay: 0.3,
-        ease: "power1.in",
-        onComplete: () => {
-          scene.remove(particle)
-          material.dispose()
-          if (i === particleCount - 1) {
-            burstGeometry.dispose()
-          }
-        },
-      })
-
-      // Add rotation
-      gsap.to(particle.rotation, {
-        x: Math.random() * Math.PI * 2,
-        y: Math.random() * Math.PI * 2,
-        z: Math.random() * Math.PI * 2,
-        duration: 1.5,
-        ease: "power1.inOut",
-      })
-    }
-  }
 
   return (
     <>
@@ -297,7 +355,18 @@ export function ThreeOverlay() {
       <div
         ref={threeContainerRef}
         className="fixed inset-0 pointer-events-none z-0"
-        style={{ pointerEvents: "none" }}
+        style={{ 
+          pointerEvents: "none",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          width: "100vw",
+          height: "100vh",
+          zIndex: 0,
+          transform: "translateZ(0)"
+        }}
       />
 
       {/* Controls Button - Fixed position - updated to elegant style with gold accent */}
@@ -331,7 +400,7 @@ export function ThreeOverlay() {
               <input
                 type="range"
                 min="0"
-                max="150"
+                max="50"
                 value={frequency}
                 onChange={(e) => setFrequency(Number.parseInt(e.target.value))}
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer elegant-slider"

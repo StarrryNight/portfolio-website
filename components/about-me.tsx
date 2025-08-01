@@ -29,7 +29,7 @@ export function AboutMe() {
     },
     {
       category: "Dev ops",
-      items: ["Vercal", "Git", "CAD", "SOLIDWORKS", "Cura"],
+      items: ["Vercel", "Git", "CAD", "SOLIDWORKS", "Cura"],
     },
   ];
 
@@ -62,9 +62,8 @@ export function AboutMe() {
             >
               <div className="space-y-4">
                 <p className="text-lg">
-                  I'm a <span className="text-amber-600 font-medium">Full Stack Developer</span> with over 5 years of
-                  experience building web applications. My journey in tech began when I built my first website at 15,
-                  and I've been hooked ever since.
+                  I'm a <span className="text-amber-600 font-medium">Software Developer</span> with over 5 years of
+                  experience building web applications. My journey in tech began when I built games on unity when I was 15, and I have been hooked ever since.
                 </p>
 
                 <p className="text-lg">
@@ -108,8 +107,7 @@ export function AboutMe() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
               viewport={{ once: true }}
-            >
-              <Card className="bg-white/50 backdrop-blur-sm border-gray-200 overflow-hidden gold-border">
+            ><Card className="bg-white/50 backdrop-blur-sm border-gray-200 overflow-hidden gold-border">
                 <CardContent className="p-6">
                   <div className="space-y-6">
                     <div className="space-y-4">
@@ -144,6 +142,7 @@ export function AboutMe() {
                       </div>
                     </div>
                   </div>
+              
                 </CardContent>
               </Card>
             </motion.div>

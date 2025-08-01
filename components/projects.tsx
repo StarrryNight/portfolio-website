@@ -15,40 +15,96 @@ export function Projects() {
     {
       title: "Portfolio Website",
       description: "A portfolio website with background and clicking effects",
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/port.png?height=400&width=600",
       tags: ["React", "tailwind CSS", "Three.js", "JavaScript"],
       category: "Software",
-      liveUrl: "#",
-      githubUrl: "#",
+      liveUrl: "https://portfolio-website-jade-seven-38.vercel.app/",
+      githubUrl: "https://github.com/StarrryNight/portfolio-website",
     },
     {
       title: "Color Palatte Genertor",
-      description: "Color palatte quicker to generate a gradient of colors by choosing an anchoring color. Uses an exponential algorithm. The theme of this website is selected by this generator",
-      image: "/placeholder.svg?height=400&width=600",
+      description:
+        "Color palatte quicker to generate a gradient of colors by choosing an anchoring color. Uses an exponential algorithm. The theme of this website is selected by this generator",
+      image: "/color.png?height=400&width=600",
       tags: ["Python", "Tkinter"],
       category: "Software",
-      liveUrl: "#",
-      githubUrl: "#",
+      liveUrl: "https://color-pallate-builder-website.vercel.app/",
+      githubUrl: "https://github.com/StarrryNight/Color-pallete-picker",
     },
     {
       title: "Tetris Practice Simulator",
-      description: "A Unity Tetris Game that allows custom scenarios to be built. Used to practice techniques like T-spin etc. Used in a school club",
+      description:
+        "A Unity Tetris Game that allows custom scenarios to be built. Used to practice techniques like T-spin etc. Used in a school club",
       image: "./tetris-thumbnail.png",
       tags: ["C#", "Unity"],
       category: "Software",
-      liveUrl: "https://play.unity.com/en/games/574578bb-2258-40e1-ab7c-89af79dbe7d5/tetris-practice",
-      githubUrl: "#",
+      liveUrl:
+        "https://play.unity.com/en/games/574578bb-2258-40e1-ab7c-89af79dbe7d5/tetris-practice",
+      githubUrl: "https://github.com/StarrryNight/UnityTetrisProject",
     },
     {
-      title: "Tabs Deleting Extension",
-      description: "A google chrome extension that allows convenient tab deletion. Published on Chrome Webstore.",
-      image: "/placeholder.svg?height=400&width=600",
+      title: "Physics Engine",
+      description:
+        "A physics engine that simulates the gravitationalmotion of planets in a 3D environment. Uses OpenGL for rendering and GLM for math. Includes camera control using keys.",
+      image: "/phy_eng.png?height=400&width=600",
+      tags: ["C++", "OpenGL", "Physics", "glm"],
+      category: "Software",
+      liveUrl: "#",
+      githubUrl: "https://github.com/StarrryNight/Physics_Engine",
+    },
+    {
+      title: "F.U.R.I.N.A",
+      description:
+        "F.U.R.I.N.A stands for Fantastic Unreal Responsive Intelligent Networked Assistant. This project is a cross-platform desktop AI assistant application, featuring a modern Electron/React frontend and a Python FastAPI backend that streams AI-generated responses.",
+      image: "/furina_icon.png?height=500&width=600",
       tags: ["HTML", "CSS", "JavaScript", "Chrome Development"],
       category: "Software",
-      liveUrl: "https://chromewebstore.google.com/detail/tabcloser/ockefngjdpppnlhgkebeleakbinmlmec?authuser=0&hl=en-US",
-      githubUrl: "#",
+      liveUrl: "#",
+      githubUrl: "https://github.com/StarrryNight/F.U.R.I.N.A",
     },
-  ]
+    {
+      title: "Acne Detector",
+      description:
+        "Detects and classifies acne types in skin images using deep learning.",
+      image: "/acne.png?height=400&width=600",
+      tags: ["Deep learning", "AI", "Keras", "Scikit-learn"],
+      category: "Software",
+      liveUrl: "$",
+      githubUrl: "https://github.com/StarrryNight/Acne",
+    },
+    {
+      title: "Rage Detector",
+      description:
+        "A real-time emotion detection system designed to identify rage and anger in gaming contexts, particularly for reaction to bad randoms in Marvel Rivals and other competitive games.",
+      image: "/rage_icon.jpg?height=400&width=600",
+      tags: ["HTML", "CSS", "JavaScript", "Chrome Development"],
+      category: "Software",
+      liveUrl: "#",
+      githubUrl: "https://github.com/StarrryNight/Rage-Detector",
+    },
+    {
+      title: "FPL Predictor",
+      description:
+        "There are two versions, one using pytorch and one using keras and sklearn. Uses FPL datasets to predict player perforamances after a week. ",
+      image: "/fpl.png?height=400&width=600",
+      tags: ["Pytorch", "Sklearn", "Keras"],
+      category: "Software",
+      liveUrl: "#",
+      githubUrl: "https://github.com/StarrryNight/Pytorch-FPL",
+    },
+
+    {
+      title: "Tabs Deleting Extension",
+      description:
+        "A google chrome extension that allows convenient tab deletion. Published on Chrome Webstore.",
+      image: "/tabs.png?height=400&width=600",
+      tags: ["HTML", "CSS", "JavaScript", "Chrome Development"],
+      category: "Software",
+      liveUrl:
+        "https://chromewebstore.google.com/detail/tabcloser/ockefngjdpppnlhgkebeleakbinmlmec?authuser=0&hl=en-US",
+      githubUrl: "https://github.com/StarrryNight/tabsCloser",
+    },
+  ];
 
    const filters = ["All", "Software", "Hardware", "Misc"]
 

@@ -31,7 +31,7 @@ export function Experiences() {
       skills: ["ASTM", "Lab Experience", "Researching", "Academic Writing"],
     },
     {
-      title: "Modelling Team Member",
+      title: "Modelling Team Designer",
       company: "UBC Rapid",
       period: "2024-2025",
       description: (
@@ -53,14 +53,12 @@ export function Experiences() {
       skills: ["CAD", "SOLIDWORKS", "3D-Printing"],
     },
     {
-      title: "Web design member",
+      title: "Web design team developer",
       company: "UBC Rapid",
       period: "2024",
       description: (
         <ul className="space-y-3 ">
-          <li>
-            {"\u2022"} Helped solved issues on the UBC Rapid website
-          </li>
+          <li>{"\u2022"} Helped solved issues on the UBC Rapid website</li>
         </ul>
       ),
       skills: ["React", "Web dev"],

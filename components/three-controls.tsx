@@ -42,8 +42,8 @@ export function ThreeControls({ onFrequencyChange, onRangeChange, onClose }: Thr
             <span className="text-xs text-blue-400">{frequency}</span>
           </div>
           <Slider
-            defaultValue={[50]}
-            max={150}
+            defaultValue={[25]}
+            max={50}
             step={1}
             onValueChange={handleFrequencyChange}
             className="cursor-pointer"
