@@ -7,11 +7,24 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Github } from "lucide-react"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 export function Projects() {
   const [activeFilter, setActiveFilter] = useState("All")
+  const [sortOption, setSortOption] = useState<"Default" | "Newest" | "Oldest">("Default")
 
-  const projects = [
+  type Project = {
+    title: string
+    description: string
+    image: string
+    tags: string[]
+    category: string
+    liveUrl: string
+    githubUrl: string
+    date?: string // ISO date string, e.g., "2024-08-01"
+  }
+
+  const projects: Project[] = [
     {
       title: "Portfolio Website",
       description: "A portfolio website with background and clicking effects",
@@ -20,17 +33,27 @@ export function Projects() {
       category: "Software",
       liveUrl: "https://portfolio-website-jade-seven-38.vercel.app/",
       githubUrl: "https://github.com/StarrryNight/portfolio-website",
+      date: "2025-07-22",
     },
     {
-      title: "Color Palatte Genertor",
+      title: "Neuromap",
       description:
-        "Color palatte quicker to generate a gradient of colors by choosing an anchoring color. Uses an exponential algorithm. The theme of this website is selected by this generator",
-      image: "/color.png?height=400&width=600",
-      tags: ["Python", "Tkinter"],
+        "An AI powered mindmapping webapp co-created with a friend from UCI",
+      image: "./Neuromap.png?height=400&width=600",
+      tags: [
+        "React",
+        "CSS",
+        "TypeScript",
+        "FastAPI",
+        "Python backend",
+        "OpenAI API",
+      ],
       category: "Software",
-      liveUrl: "https://color-pallate-builder-website.vercel.app/",
-      githubUrl: "https://github.com/StarrryNight/Color-pallete-picker",
+      liveUrl: "https://www.neuromap.link",
+      githubUrl: "#",
+      date: "2025-08-22",
     },
+
     {
       title: "Tetris Practice Simulator",
       description:
@@ -41,6 +64,7 @@ export function Projects() {
       liveUrl:
         "https://play.unity.com/en/games/574578bb-2258-40e1-ab7c-89af79dbe7d5/tetris-practice",
       githubUrl: "https://github.com/StarrryNight/UnityTetrisProject",
+      date: "2023-04-20",
     },
     {
       title: "Physics Engine",
@@ -51,6 +75,52 @@ export function Projects() {
       category: "Software",
       liveUrl: "#",
       githubUrl: "https://github.com/StarrryNight/Physics_Engine",
+      date: "2025-07-29",
+    },
+    {
+      title: "Water Harvesting Simulation",
+      description:
+        "With a team of 6, created a simulation of water harvesting across different years for an indigenous community. Devlopoed an optimization algorithm to optimize stakeholder satisfaction.",
+      image: "./Water-Harvesting.png?height=400&width=600",
+      tags: ["Excel", "Visual Basic", "Optimization"],
+      category: "Software",
+      liveUrl: "#",
+      githubUrl: "#",
+      date: "2025-04-04",
+    },
+    {
+      title: "WebCam Holder",
+      description:
+        "With a team of 3, designed and 3D printed a holder for a web cam for the UBC Computer Science Department. The holder is designed to be able to hold the web cam in a stable position and also be able to rotate the web cam to the desired angle.",
+      image: "/.png?height=400&width=600",
+      tags: ["SOLIDWORKS", "3D Printing", "Consulting"],
+      category: "Hardware",
+      liveUrl: "#",
+      githubUrl: "#",
+      date: "2024-11-29",
+    },
+    {
+      title: "Autonomous Claw",
+      description:
+        "An team-based  engineering project where we designed a claw to pick up and move objects. I worked on the CAD and some C coding",
+      image: "./Claw.png?height=400&width=600",
+      tags: ["C", "SOLIDWORKS", "Metal Cutting", "3D Prototyping"],
+      category: "Hardware",
+      liveUrl:
+        "#",
+      githubUrl: "#",
+      date: "2025-02-28",
+    },
+    {
+      title: "Color Palatte Genertor",
+      description:
+        "Color palatte quicker to generate a gradient of colors by choosing an anchoring color. Uses an exponential algorithm. The theme of this website is selected by this generator",
+      image: "/color.png?height=400&width=600",
+      tags: ["Python", "Tkinter"],
+      category: "Software",
+      liveUrl: "https://color-pallate-builder-website.vercel.app/",
+      githubUrl: "https://github.com/StarrryNight/Color-pallete-picker",
+      date: "2024-08-20",
     },
     {
       title: "F.U.R.I.N.A",
@@ -61,6 +131,7 @@ export function Projects() {
       category: "Software",
       liveUrl: "#",
       githubUrl: "https://github.com/StarrryNight/F.U.R.I.N.A",
+      date: "2025-07-02",
     },
     {
       title: "Acne Detector",
@@ -71,6 +142,7 @@ export function Projects() {
       category: "Software",
       liveUrl: "$",
       githubUrl: "https://github.com/StarrryNight/Acne",
+      date: "2025-07-15",
     },
     {
       title: "Rage Detector",
@@ -81,6 +153,7 @@ export function Projects() {
       category: "Software",
       liveUrl: "#",
       githubUrl: "https://github.com/StarrryNight/Rage-Detector",
+      date: "2025-07-11",
     },
     {
       title: "FPL Predictor",
@@ -91,6 +164,7 @@ export function Projects() {
       category: "Software",
       liveUrl: "#",
       githubUrl: "https://github.com/StarrryNight/Pytorch-FPL",
+      date: "2025-06-26",
     },
 
     {
@@ -103,6 +177,7 @@ export function Projects() {
       liveUrl:
         "https://chromewebstore.google.com/detail/tabcloser/ockefngjdpppnlhgkebeleakbinmlmec?authuser=0&hl=en-US",
       githubUrl: "https://github.com/StarrryNight/tabsCloser",
+      date: "2022-03-28",
     },
   ];
 
@@ -110,6 +185,13 @@ export function Projects() {
 
   const filteredProjects =
     activeFilter === "All" ? projects : projects.filter((project) => project.category === activeFilter)
+
+  const sortedProjects = [...filteredProjects].sort((a, b) => {
+    if (sortOption === "Default") return 0
+    const aTime = a.date ? new Date(a.date).getTime() : 0
+    const bTime = b.date ? new Date(b.date).getTime() : 0
+    return sortOption === "Newest" ? bTime - aTime : aTime - bTime
+  })
 
   const container = {
     hidden: { opacity: 0 },
@@ -150,6 +232,16 @@ export function Projects() {
               {filter}
             </Button>
           ))}
+          <Select value={sortOption} onValueChange={(val) => setSortOption(val as "Default" | "Newest" | "Oldest")}>
+            <SelectTrigger className="w-[180px] border-gray-200">
+              <SelectValue placeholder="Sort by" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Default">Sort: Default</SelectItem>
+              <SelectItem value="Newest">Sort: Newest</SelectItem>
+              <SelectItem value="Oldest">Sort: Oldest</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <motion.div
@@ -159,7 +251,7 @@ export function Projects() {
           whileInView="show"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {filteredProjects.map((project, index) => (
+          {sortedProjects.map((project, index) => (
             <motion.div key={index} variants={item}>
               <Card className="overflow-hidden h-full flex flex-col border-gray-200 bg-white/50 backdrop-blur-sm hover:shadow-lg hover:shadow-amber-100 transition-all duration-300 hover:border-amber-200">
                 <div className="relative h-48 w-full overflow-hidden">
@@ -173,6 +265,15 @@ export function Projects() {
                 <CardHeader>
                   <CardTitle className="text-amber-600">{project.title}</CardTitle>
                   <CardDescription>{project.description}</CardDescription>
+                  {project.date && (
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {new Date(project.date).toLocaleDateString(undefined, {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </p>
+                  )}
                 </CardHeader>
                 <CardContent className="flex-grow">
                   <div className="flex flex-wrap gap-2">

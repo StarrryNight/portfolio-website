@@ -47,7 +47,10 @@ const TypingEffect = ({ texts }: { texts: string[] }) => {
 
 export function Introduction() {
   return (
-    <section id="home" className="relative py-20 md:py-32 overflow-hidden min-h-screen flex items-center">
+    <section
+      id="home"
+      className="relative py-20 md:py-32 overflow-hidden min-h-screen flex items-center"
+    >
       <div className="container mx-auto z-10">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <motion.div
@@ -71,14 +74,25 @@ export function Introduction() {
                 >
                   👋
                 </motion.span>
-                <h2 className="text-xl md:text-2xl font-medium text-amber-600">Hello there, I'm</h2>
+                <h2 className="text-xl md:text-2xl font-medium text-amber-600">
+                  Hello there, I'm
+                </h2>
               </div>
 
-              <h1 className="text-4xl md:text-6xl font-bold tracking-tighter gradient-text">Samuel Lau</h1>
+              <h1 className="text-4xl md:text-6xl font-bold tracking-tighter gradient-text">
+                Samuel Lau
+              </h1>
 
               <h2 className="text-2xl md:text-3xl font-medium">
-                I'm {" "}
-                <TypingEffect texts={["an Engineering Physics Student at UBC", "a CAD designer", "a Programmer", "a Tech Enthusiast"]} />
+                I'm{" "}
+                <TypingEffect
+                  texts={[
+                    "an Engineering Physics Student at UBC",
+                    "a CAD designer",
+                    "a Programmer",
+                    "a Tech Enthusiast",
+                  ]}
+                />
               </h2>
             </div>
 
@@ -143,7 +157,13 @@ export function Introduction() {
             className="relative mx-auto"
           >
             <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-amber-300 shadow-lg shadow-amber-100 animate-float">
-              <Image src="./PFP.jpg" alt="Profile" fill className="object-cover" priority />
+              <Image
+                src="./PFP.jpg"
+                alt="Profile"
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
 
             {/* Decorative elements */}
@@ -187,8 +207,19 @@ export function Introduction() {
           transition={{ delay: 1.4, duration: 0.5 }}
           className="mt-16 flex flex-wrap justify-center gap-3"
         >
-          <div className="text-sm font-medium mr-2 text-muted-foreground">Tech Stack:</div>
-          {["SOLIDWORKS", "Python", "C", "C#", "3D Printing", "Microsoft Excel"].map((tech, index) => (
+          <div className="text-sm font-medium mr-2 text-muted-foreground">
+            Tech Stack:
+          </div>
+          {[
+            "Python",
+            "C",
+            "C++",
+            "TypeScript",
+            "React",
+            "3D Printing",
+            "SOLIDWORKS",
+            "Microsoft Excel",
+          ].map((tech, index) => (
             <span
               key={tech}
               className="px-3 py-1 bg-gray-50 text-gray-800 rounded-full text-sm border border-gray-200 hover:border-amber-300 transition-colors"
@@ -200,5 +231,5 @@ export function Introduction() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

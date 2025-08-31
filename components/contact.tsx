@@ -105,8 +105,8 @@ export function Contact() {
                       className="border-gray-200 bg-white focus:border-amber-300"
                     />
                   </div>
-                  <Button type="submit" className="w-full gold-button">
-                    Send Message
+                  <Button type="button" disabled variant="outline" className="w-full border-gray-200 text-gray-500 cursor-not-allowed">
+                    Currently not available. Please email me directly via lausingsamuel@gmail.com
                   </Button>
                 </form>
               </CardContent>
