@@ -107,11 +107,11 @@ export function Experiences() {
   }
 
   return (
-    <section id="experience" className="py-20 relative">
+    <section id="experience" className="h-full w-full py-20 relative overflow-y-auto">
       {/* Background pattern */}
       <div className="absolute inset-0 grid-pattern opacity-5 -z-10"></div>
 
-      <div className="space-y-10">
+      <div className="container mx-auto px-4 space-y-10">
         <div className="space-y-2 text-center">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">Experience</h2>
           <p className="text-muted-foreground md:text-xl max-w-md mx-auto">

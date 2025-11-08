@@ -107,13 +107,13 @@ export function AboutMe() {
   }
 
   return (
-    <section id="about" className="py-20 relative min-h-[600px]">
+    <section id="about" className="h-full w-full py-20 relative overflow-y-auto">
       {/* Background pattern */}
       <div className="absolute inset-0 dot-pattern opacity-5 -z-10"></div>
 
       <div
         ref={elementRef}
-        className={`container mx-auto px-4 animate-on-scroll ${isVisible ? 'animate-in' : ''}`}
+        className={`h-full container mx-auto px-4 animate-on-scroll ${isVisible ? 'animate-in' : ''}`}
       >
         <div className="w-full max-w-7xl mx-auto h-full flex items-center relative">
           <div className="grid grid-cols-1 md:grid-cols-[45%_55%] gap-0 w-full items-center">

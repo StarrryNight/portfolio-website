@@ -47,7 +47,7 @@ const TypingEffect = ({ texts }: { texts: string[] }) => {
 
 export function Introduction() {
   return (
-    <section id="home" className="relative py-20 md:py-32 overflow-hidden min-h-screen flex items-center">
+    <section id="home" className="relative h-full w-full overflow-hidden flex items-center">
       <div className="container mx-auto z-10">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <motion.div

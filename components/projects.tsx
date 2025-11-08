@@ -71,8 +71,8 @@ export function Projects() {
   }
 
   return (
-    <section id="projects" className="py-20">
-      <div className="space-y-10">
+    <section id="projects" className="h-full w-full py-20 overflow-y-auto">
+      <div className="container mx-auto px-4 space-y-10">
         <div className="space-y-2 text-center">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">Projects</h2>
           <p className="text-muted-foreground md:text-xl max-w-md mx-auto">
