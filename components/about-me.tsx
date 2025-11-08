@@ -1,154 +1,209 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { useState, useEffect, useRef } from "react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import MannequinScene from "./MannequinScene"
+
+interface Identity {
+  id: string
+  title: string
+  description: string
+  tags: string[]
+  accentColor: string
+  mannequinProps: {
+    outfit: string
+    props?: string[]
+    backgroundType: string
+  }
+}
+
+const identities: Identity[] = [
+  {
+    id: "student",
+    title: "Engineering Physics Student",
+    description:
+      "Studying Engineering Physics at UBC, exploring the boundary between theory and building real things. Passionate about understanding the fundamental principles that govern our world and applying them to solve complex problems.",
+    tags: ["Class of 2026", "Physics", "Mathematics", "Programming"],
+    accentColor: "accent-amber",
+    mannequinProps: {
+      outfit: "hoodie",
+      props: ["equations"],
+      backgroundType: "geometric",
+    },
+  },
+  {
+    id: "builder",
+    title: "Builder / Tinkerer",
+    description:
+      "I love building things—whether it's software, hardware, or something in between. Side projects are my playground for experimentation, learning new technologies, and bringing ideas to life.",
+    tags: ["Side Projects", "Hardware", "Software", "Prototyping"],
+    accentColor: "accent-amber-light",
+    mannequinProps: {
+      outfit: "tshirt",
+      props: ["workbench"],
+      backgroundType: "minimal",
+    },
+  },
+  {
+    id: "developer",
+    title: "Full Stack Developer",
+    description:
+      "With over 5 years of experience building web applications, I specialize in creating modern, scalable solutions. I'm passionate about clean code, user experience, and staying on top of the latest web technologies.",
+    tags: ["React", "Next.js", "Python", "Full Stack"],
+    accentColor: "accent-amber-dark",
+    mannequinProps: {
+      outfit: "tshirt",
+      props: ["code"],
+      backgroundType: "minimal",
+    },
+  },
+  {
+    id: "human",
+    title: "Human / Friend / Samuel",
+    description:
+      "Beyond the code and equations, I value genuine connections, curiosity, and finding joy in the everyday. When I'm not coding, you can find me playing music, playing soccer, or chilling with my friends.",
+    tags: ["Curiosity", "Connection", "Growth", "Balance"],
+    accentColor: "accent-amber",
+    mannequinProps: {
+      outfit: "casual",
+      props: ["chair", "plant"],
+      backgroundType: "warm",
+    },
+  },
+]
 
 export function AboutMe() {
-  const skills = [
-    {
-      category: "Web dev",
-      items: [
-        "React",
-        "Next.js",
-        "Reactflow",
-        "Tailwind CSS",
-        "CSS",
-        "Node.js",
-        "fastAPI",
-        "REST API",
-      ],
-    },
-    {
-      category: "Machine Learning",
-      items: ["Pytorch", "Sklearn", "Keras", "Opencv", "Tensorflow"],
-    },
-    {
-      category: "Hardware",
-      items: ["Circuitry", "3D printing", "Printer maintenence"],
-    },
-    {
-      category: "Dev ops",
-      items: ["Vercal", "Git", "CAD", "SOLIDWORKS", "Cura"],
-    },
-  ];
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isVisible, setIsVisible] = useState(false)
+  const elementRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current)
+    }
+
+    return () => {
+      if (elementRef.current) {
+        observer.unobserve(elementRef.current)
+      }
+    }
+  }, [])
+
+  const nextIdentity = () => {
+    setCurrentIndex((prev) => (prev + 1) % identities.length)
+  }
+
+  const prevIdentity = () => {
+    setCurrentIndex((prev) => (prev - 1 + identities.length) % identities.length)
+  }
 
   return (
-    <section id="about" className="py-20 relative">
+    <section id="about" className="py-20 relative min-h-[600px]">
       {/* Background pattern */}
       <div className="absolute inset-0 dot-pattern opacity-5 -z-10"></div>
 
-      <div className="container mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="space-y-12"
-        >
-          <div className="text-center space-y-4">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">About Me</h2>
-            <p className="text-muted-foreground md:text-xl max-w-2xl mx-auto">
-            </p>
-          </div>
+      <div
+        ref={elementRef}
+        className={`container mx-auto px-4 animate-on-scroll ${isVisible ? 'animate-in' : ''}`}
+      >
+        <div className="w-full max-w-7xl mx-auto h-full flex items-center relative">
+          <div className="grid grid-cols-1 md:grid-cols-[45%_55%] gap-0 w-full items-center">
+            {/* Left: 3D Scene */}
+            <div className="relative h-[500px] md:h-[600px]">
+              {identities.map((identity, index) => (
+                <div
+                  key={identity.id}
+                  className={`absolute inset-0 rounded-2xl overflow-hidden transition-opacity duration-500 ${
+                    index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
+                  }`}
+                >
+                  {index === currentIndex && <MannequinScene identity={identity} />}
+                </div>
+              ))}
+            </div>
 
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="space-y-6"
-            >
-              <div className="space-y-4">
-                <p className="text-lg">
-                  I'm a <span className="text-amber-600 font-medium">Full Stack Developer</span> with over 5 years of
-                  experience building web applications. My journey in tech began when I built my first website at 15,
-                  and I've been hooked ever since.
-                </p>
-
-                <p className="text-lg">
-                  I am currently studying Engineering Physics at UBC. I am a part of student groups that specailizes in engineering designs,
-                  where I have the chance to gain industrial experiences and work with clients.
-                </p>
-
-                <p className="text-lg">
-                  I specialize in building{" "}
-                  <span className="text-amber-600 font-medium">python software, app frontends, and deep learning projects</span> using
-                  modern JavaScript frameworks. I'm passionate about clean code, user experience, and staying on top of
-                  the latest web technologies.
-                </p>
-
-                <p className="text-lg">
-                  When I'm not coding, you can find me playing music, playing soccer, or chilling with my friends.
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                <Badge variant="outline" className="border-amber-200 bg-amber-50 text-amber-700">
-                  Problem Solver
-                </Badge>
-                <Badge variant="outline" className="border-amber-200 bg-amber-50 text-amber-700">
-                  Team Player
-                </Badge>
-                <Badge variant="outline" className="border-amber-200 bg-amber-50 text-amber-700">
-                  Detail-Oriented
-                </Badge>
-                <Badge variant="outline" className="border-amber-200 bg-amber-50 text-amber-700">
-                  Fast Learner
-                </Badge>
-                <Badge variant="outline" className="border-amber-200 bg-amber-50 text-amber-700">
-                  Creative Thinker
-                </Badge>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              viewport={{ once: true }}
-            >
-              <Card className="bg-white/50 backdrop-blur-sm border-gray-200 overflow-hidden gold-border">
-                <CardContent className="p-6">
-                  <div className="space-y-6">
-                    <div className="space-y-4">
-                      <h3 className="text-xl font-semibold text-amber-600">Skills & Expertise</h3>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        {skills.map((skillGroup) => (
-                          <div key={skillGroup.category} className="space-y-2">
-                            <h4 className="text-sm font-medium text-muted-foreground">{skillGroup.category}</h4>
-                            <div className="flex flex-wrap gap-2">
-                              {skillGroup.items.map((skill) => (
-                                <span
-                                  key={skill}
-                                  className="px-2 py-1 text-xs rounded-md bg-gray-50 border border-gray-200 text-gray-700"
-                                >
-                                  {skill}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="pt-4 border-t border-gray-100">
-                      <h3 className="text-xl font-semibold text-amber-600 mb-4">Education</h3>
-                      <div className="space-y-3">
-                        <div>
-                          <h4 className="font-medium">University of British Columbia</h4>
-                          <p className="text-sm text-muted-foreground">BASC in Engineering Physics, 2024-Present</p>
-                        </div>
-                      </div>
+            {/* Right: Text Content */}
+            <div className="relative h-[500px] md:h-[600px]">
+              {identities.map((identity, index) => (
+                <div
+                  key={identity.id}
+                  className={`absolute inset-0 transition-all duration-500 ${
+                    index === currentIndex
+                      ? "opacity-100 translate-x-0 z-10"
+                      : index < currentIndex
+                      ? "opacity-0 -translate-x-4 z-0"
+                      : "opacity-0 translate-x-4 z-0"
+                  }`}
+                >
+                  <div className="h-full flex flex-col justify-center space-y-6 px-4 md:px-8">
+                    <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-amber-600">
+                      {identity.title}
+                    </h2>
+                    <p className="text-base md:text-lg text-gray-700 leading-relaxed max-w-2xl">
+                      {identity.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {identity.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-4 py-2 rounded-full text-sm font-medium bg-amber-50 text-amber-700 border border-amber-200"
+                        >
+                          {tag}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+                </div>
+              ))}
+            </div>
           </div>
-        </motion.div>
+
+          {/* Navigation Arrows */}
+          <button
+            onClick={prevIdentity}
+            className="absolute left-0 md:-left-16 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white border border-gray-200 shadow-md hover:shadow-lg hover:bg-amber-50 hover:border-amber-300 transition-all z-10"
+            aria-label="Previous identity"
+          >
+            <ChevronLeft className="w-6 h-6 text-gray-700 hover:text-amber-600 transition-colors" />
+          </button>
+          <button
+            onClick={nextIdentity}
+            className="absolute right-0 md:-right-16 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white border border-gray-200 shadow-md hover:shadow-lg hover:bg-amber-50 hover:border-amber-300 transition-all z-10"
+            aria-label="Next identity"
+          >
+            <ChevronRight className="w-6 h-6 text-gray-700 hover:text-amber-600 transition-colors" />
+          </button>
+
+          {/* Pagination Dots */}
+          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+            {identities.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  index === currentIndex
+                    ? "w-8 bg-amber-600"
+                    : "w-2 bg-gray-300 hover:bg-gray-400"
+                }`}
+                aria-label={`Go to identity ${index + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Page Indicator */}
+          <div className="absolute bottom-12 right-4 md:right-12 text-sm text-gray-500 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full border border-gray-200">
+            {currentIndex + 1}/{identities.length}
+          </div>
+        </div>
       </div>
     </section>
   )
