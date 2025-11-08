@@ -34,7 +34,7 @@ export default function Home() {
   }, [sections.length])
 
   return (
-    <main className="h-screen w-screen overflow-hidden bg-background">
+    <main className="h-screen w-screen overflow-hidden bg-background" style={{ transform: 'translateZ(0)' }}>
       <TopNav
         sections={sections}
         activeSection={activeSection}
@@ -42,7 +42,14 @@ export default function Home() {
       />
       <HorizontalPager activeIndex={activeSection}>
         {sections.map((section) => (
-          <div key={section.id} className="h-full w-full flex-shrink-0 overflow-y-auto">
+          <div 
+            key={section.id} 
+            className="h-full w-full flex-shrink-0 overflow-y-auto hide-scrollbar"
+            style={{
+              transform: 'translateZ(0)',
+              WebkitOverflowScrolling: 'touch',
+            }}
+          >
             {section.component}
           </div>
         ))}

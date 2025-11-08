@@ -107,7 +107,7 @@ export function AboutMe() {
   }
 
   return (
-    <section id="about" className="h-full w-full py-20 relative overflow-y-auto">
+    <section id="about" className="h-full w-full py-20 relative overflow-y-auto hide-scrollbar">
       {/* Background pattern */}
       <div className="absolute inset-0 dot-pattern opacity-5 -z-10"></div>
 
@@ -115,7 +115,11 @@ export function AboutMe() {
         ref={elementRef}
         className={`h-full container mx-auto px-4 animate-on-scroll ${isVisible ? 'animate-in' : ''}`}
       >
-        <div className="w-full max-w-7xl mx-auto h-full flex items-center relative">
+        <div className="space-y-4 mb-6 text-center">
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">About Me</h2>
+          <h3 className="text-xl md:text-2xl font-semibold text-amber-600">Get to know the different sides of who I am</h3>
+        </div>
+        <div className="w-full max-w-7xl mx-auto flex items-center relative">
           <div className="grid grid-cols-1 md:grid-cols-[45%_55%] gap-0 w-full items-center">
             {/* Left: 3D Scene */}
             <div className="relative h-[500px] md:h-[600px]">

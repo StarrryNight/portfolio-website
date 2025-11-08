@@ -37,12 +37,13 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="h-full w-full py-20 overflow-y-auto">
+    <section id="contact" className="h-full w-full py-20 overflow-y-auto hide-scrollbar">
       <div className="container mx-auto px-4 space-y-10">
         <div className="space-y-2 text-center">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">Contact Me</h2>
-          <p className="text-muted-foreground md:text-xl max-w-md mx-auto">
-            Have a project in mind? Let's work together to bring your ideas to life.
+          <h3 className="text-xl md:text-2xl font-semibold text-amber-600">Have a project in mind?</h3>
+          <p className="text-muted-foreground md:text-lg max-w-md mx-auto">
+            Let's work together to bring your ideas to life.
           </p>
         </div>
 
