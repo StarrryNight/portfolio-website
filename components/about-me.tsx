@@ -214,6 +214,15 @@ export function AboutMe() {
             <ChevronRight className="w-6 h-6 text-gray-700 hover:text-amber-600 transition-colors" />
           </button>
 
+          {/* Swipe Indicator - Mobile only */}
+          <div className="absolute top-2 left-1/2 -translate-x-1/2 md:hidden z-20">
+            <div className="flex items-center gap-1 text-xs text-gray-400 bg-white/80 backdrop-blur-sm px-2 py-1 rounded-full border border-gray-200">
+              <ChevronLeft className="h-3 w-3" />
+              <span>Swipe</span>
+              <ChevronRight className="h-3 w-3" />
+            </div>
+          </div>
+
           {/* Pagination Dots */}
           <div className="absolute bottom-0 md:-bottom-12 left-1/2 -translate-x-1/2 flex gap-2 z-20">
             {identities.map((_, index) => (

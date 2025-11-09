@@ -7,9 +7,13 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Portfolio Website",
-  description: "A professional portfolio website",
+  title: "Samuel Lau",
+  description: "Portfolio of Samuel Lau - Engineering Physics Student, CAD Designer, Software Developer",
   generator: 'v0.dev',
+  icons: {
+    icon: '/angel.png',
+    apple: '/angel.png',
+  },
 }
 
 export const viewport: Viewport = {
