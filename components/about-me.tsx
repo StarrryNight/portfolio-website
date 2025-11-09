@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import MannequinScene from "./MannequinScene"
 
@@ -76,6 +76,8 @@ export function AboutMe() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
   const elementRef = useRef<HTMLDivElement>(null)
+  const touchStartX = useRef<number | null>(null)
+  const touchEndX = useRef<number | null>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -98,12 +100,39 @@ export function AboutMe() {
     }
   }, [])
 
-  const nextIdentity = () => {
+  const nextIdentity = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % identities.length)
+  }, [])
+
+  const prevIdentity = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + identities.length) % identities.length)
+  }, [])
+
+  // Touch swipe handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX
   }
 
-  const prevIdentity = () => {
-    setCurrentIndex((prev) => (prev - 1 + identities.length) % identities.length)
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX
+  }
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return
+    
+    const distance = touchStartX.current - touchEndX.current
+    const minSwipeDistance = 50
+
+    if (distance > minSwipeDistance) {
+      // Swipe left - next
+      nextIdentity()
+    } else if (distance < -minSwipeDistance) {
+      // Swipe right - previous
+      prevIdentity()
+    }
+
+    touchStartX.current = null
+    touchEndX.current = null
   }
 
   return (
@@ -119,20 +148,18 @@ export function AboutMe() {
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">About Me</h2>
           <h3 className="text-xl md:text-2xl font-semibold text-amber-600">Get to know the different sides of who I am</h3>
         </div>
-        <div className="w-full max-w-7xl mx-auto flex items-center relative">
+        <div 
+          className="w-full max-w-7xl mx-auto flex items-center relative"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <div className="grid grid-cols-1 md:grid-cols-[45%_55%] gap-0 w-full items-center">
-            {/* Left: 3D Scene */}
+            {/* Left: 3D Scene - Only render active scene */}
             <div className="relative h-[300px] sm:h-[350px] md:h-[600px]">
-              {identities.map((identity, index) => (
-                <div
-                  key={identity.id}
-                  className={`absolute inset-0 rounded-2xl overflow-hidden transition-opacity duration-500 ${
-                    index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
-                  }`}
-                >
-                  {index === currentIndex && <MannequinScene identity={identity} />}
-                </div>
-              ))}
+              <div className="absolute inset-0 rounded-2xl overflow-hidden">
+                <MannequinScene key={identities[currentIndex].id} identity={identities[currentIndex]} />
+              </div>
             </div>
 
             {/* Right: Text Content */}
@@ -140,12 +167,12 @@ export function AboutMe() {
               {identities.map((identity, index) => (
                 <div
                   key={identity.id}
-                  className={`absolute inset-0 transition-all duration-500 ${
+                  className={`absolute inset-0 transition-all duration-300 ease-out will-change-transform ${
                     index === currentIndex
                       ? "opacity-100 translate-x-0 z-10"
                       : index < currentIndex
-                      ? "opacity-0 -translate-x-4 z-0"
-                      : "opacity-0 translate-x-4 z-0"
+                      ? "opacity-0 -translate-x-4 z-0 pointer-events-none"
+                      : "opacity-0 translate-x-4 z-0 pointer-events-none"
                   }`}
                 >
                   <div className="h-full flex flex-col justify-center space-y-4 md:space-y-6 px-4 md:px-8">
