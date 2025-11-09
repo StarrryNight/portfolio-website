@@ -22,7 +22,7 @@ interface MannequinSceneProps {
 export default function MannequinScene({ identity }: MannequinSceneProps) {
   return (
     <Canvas
-      camera={{ position: [2.5, 1.2, 4], fov: 45, near: 0.1, far: 100 }}
+      camera={{ position: [3, 0.5, 4], fov: 50, near: 0.1, far: 100 }}
       gl={{ antialias: true, alpha: true }}
       className="bg-white"
     >
@@ -46,7 +46,7 @@ export default function MannequinScene({ identity }: MannequinSceneProps) {
           enableDamping={true}
           dampingFactor={0.05}
           rotateSpeed={0.5}
-          target={[0, 0.8, -0.5]}
+          target={[0, 0.3, 0]}
         />
         <Environment preset="city" />
       </Suspense>

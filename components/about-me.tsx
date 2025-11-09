@@ -33,10 +33,10 @@ const identities: Identity[] = [
   },
   {
     id: "builder",
-    title: "Builder / Tinkerer",
+    title: "Robotics & ML Builder",
     description:
-      "I love building things—whether it's software, hardware, or something in between. Side projects are my playground for experimentation, learning new technologies, and bringing ideas to life.",
-    tags: ["Side Projects", "Hardware", "Software", "Prototyping"],
+      "I love building things—whether it's autonomous robots, machine learning models, or hardware systems. From designing robotic claws to training neural networks, I'm passionate about bringing intelligent systems to life through hands-on experimentation and continuous learning.",
+    tags: ["Robotics", "Machine Learning", "Hardware", "Neural Networks", "Autonomous Systems"],
     accentColor: "accent-amber-light",
     mannequinProps: {
       outfit: "tshirt",
@@ -59,9 +59,9 @@ const identities: Identity[] = [
   },
   {
     id: "human",
-    title: "Human / Friend / Samuel",
+    title: "Samuel",
     description:
-      "Beyond the code and equations, I value genuine connections, curiosity, and finding joy in the everyday. When I'm not coding, you can find me playing music, playing soccer, or chilling with my friends.",
+      "Outside of work, I'm a passionate musician, a soccer player, and a social butterfly. I love to play music, play soccer, and hang out with my friends. I am involved in several school clubs in UBC and I value every genuine connection I make with people!",
     tags: ["Curiosity", "Connection", "Growth", "Balance"],
     accentColor: "accent-amber",
     mannequinProps: {

@@ -7,17 +7,15 @@ import { Introduction } from "@/components/introduction"
 import { AboutMe } from "@/components/about-me"
 import { Experiences } from "@/components/experiences"
 import { Projects } from "@/components/projects"
-import { Contact } from "@/components/contact"
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState(0)
 
   const sections = [
-    { id: "home", label: "Home", component: <Introduction /> },
+    { id: "home", label: "Home", component: <Introduction onNavigateToProjects={() => setActiveSection(3)} /> },
     { id: "about", label: "About", component: <AboutMe /> },
     { id: "experience", label: "Experience", component: <Experiences /> },
     { id: "projects", label: "Projects", component: <Projects /> },
-    { id: "contact", label: "Contact", component: <Contact /> },
   ]
 
   useEffect(() => {

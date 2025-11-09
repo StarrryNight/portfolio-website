@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Github, Linkedin, Twitter } from "lucide-react"
+import { Github, Linkedin, Twitter } from "lucide-react"
 import { motion } from "framer-motion"
 
 // Typing effect component
@@ -45,7 +45,11 @@ const TypingEffect = ({ texts }: { texts: string[] }) => {
   return <span className="inline-block border-r-2 border-amber-500 pr-1 animate-blink">{currentText}</span>
 }
 
-export function Introduction() {
+interface IntroductionProps {
+  onNavigateToProjects?: () => void
+}
+
+export function Introduction({ onNavigateToProjects }: IntroductionProps = {}) {
   return (
     <section id="home" className="relative h-full w-full overflow-hidden flex items-center">
       <div className="container mx-auto z-10">
@@ -97,13 +101,10 @@ export function Introduction() {
               transition={{ delay: 0.5, duration: 0.5 }}
               className="flex gap-4"
             >
-              <Button className="gold-button group">
-                Contact Me
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
               <Button
                 variant="outline"
                 className="border-gray-200 hover:border-amber-300 hover:text-amber-600 transition-colors"
+                onClick={onNavigateToProjects}
               >
                 View Projects
               </Button>
