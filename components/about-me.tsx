@@ -136,7 +136,7 @@ export function AboutMe() {
   }
 
   return (
-    <section id="about" className="h-full w-full py-8 md:py-20 relative overflow-y-auto hide-scrollbar">
+    <section id="about" className="h-full md:h-full w-full py-4 md:py-20 relative overflow-y-auto hide-scrollbar">
       {/* Background pattern */}
       <div className="absolute inset-0 dot-pattern opacity-5 -z-10"></div>
 
@@ -144,26 +144,26 @@ export function AboutMe() {
         ref={elementRef}
         className={`h-full container mx-auto px-4 animate-on-scroll ${isVisible ? 'animate-in' : ''}`}
       >
-        <div className="space-y-2 md:space-y-4 mb-4 md:mb-6 text-center">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">About Me</h2>
-          <h3 className="text-xl md:text-2xl font-semibold text-amber-600">Get to know the different sides of who I am</h3>
+        <div className="space-y-1 md:space-y-4 mb-3 md:mb-6 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">About Me</h2>
+          <h3 className="text-base md:text-xl md:text-2xl font-semibold text-amber-600">Get to know the different sides of who I am</h3>
         </div>
         <div 
-          className="w-full max-w-7xl mx-auto flex items-center relative"
+          className="w-full max-w-7xl mx-auto flex items-center relative pb-12 md:pb-0"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="grid grid-cols-1 md:grid-cols-[45%_55%] gap-0 w-full items-center">
+          <div className="grid grid-cols-1 md:grid-cols-[45%_55%] gap-4 md:gap-0 w-full items-center">
             {/* Left: 3D Scene - Only render active scene */}
-            <div className="relative h-[300px] sm:h-[350px] md:h-[600px]">
+            <div className="relative h-[250px] sm:h-[300px] md:h-[600px]">
               <div className="absolute inset-0 rounded-2xl overflow-hidden">
                 <MannequinScene key={identities[currentIndex].id} identity={identities[currentIndex]} />
               </div>
             </div>
 
             {/* Right: Text Content */}
-            <div className="relative min-h-[300px] sm:min-h-[350px] md:h-[600px]">
+            <div className="relative min-h-[200px] sm:min-h-[250px] md:h-[600px] pb-12 md:pb-0">
               {identities.map((identity, index) => (
                 <div
                   key={identity.id}
@@ -175,18 +175,18 @@ export function AboutMe() {
                       : "opacity-0 translate-x-4 z-0 pointer-events-none"
                   }`}
                 >
-                  <div className="h-full flex flex-col justify-center space-y-4 md:space-y-6 px-4 md:px-8">
-                    <h2 className="text-2xl md:text-5xl font-bold tracking-tighter text-amber-600">
+                  <div className="h-full flex flex-col justify-center space-y-2 md:space-y-6 px-2 md:px-8">
+                    <h2 className="text-xl md:text-5xl font-bold tracking-tighter text-amber-600">
                       {identity.title}
                     </h2>
-                    <p className="text-sm md:text-lg text-gray-700 leading-relaxed max-w-2xl">
+                    <p className="text-xs md:text-lg text-gray-700 leading-relaxed max-w-2xl">
                       {identity.description}
                     </p>
-                    <div className="flex flex-wrap gap-2 mt-2 md:mt-4">
+                    <div className="flex flex-wrap gap-1.5 md:gap-2 mt-1 md:mt-4">
                       {identity.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-4 py-2 rounded-full text-sm font-medium bg-amber-50 text-amber-700 border border-amber-200"
+                          className="px-2 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-medium bg-amber-50 text-amber-700 border border-amber-200"
                         >
                           {tag}
                         </span>
@@ -198,24 +198,24 @@ export function AboutMe() {
             </div>
           </div>
 
-          {/* Navigation Arrows */}
+          {/* Navigation Arrows - Hidden on mobile, shown on desktop */}
           <button
             onClick={prevIdentity}
-            className="absolute left-0 md:-left-16 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white border border-gray-200 shadow-md hover:shadow-lg hover:bg-amber-50 hover:border-amber-300 transition-all z-10"
+            className="hidden md:flex absolute left-0 md:-left-16 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white border border-gray-200 shadow-md hover:shadow-lg hover:bg-amber-50 hover:border-amber-300 transition-all z-10"
             aria-label="Previous identity"
           >
             <ChevronLeft className="w-6 h-6 text-gray-700 hover:text-amber-600 transition-colors" />
           </button>
           <button
             onClick={nextIdentity}
-            className="absolute right-0 md:-right-16 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white border border-gray-200 shadow-md hover:shadow-lg hover:bg-amber-50 hover:border-amber-300 transition-all z-10"
+            className="hidden md:flex absolute right-0 md:-right-16 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white border border-gray-200 shadow-md hover:shadow-lg hover:bg-amber-50 hover:border-amber-300 transition-all z-10"
             aria-label="Next identity"
           >
             <ChevronRight className="w-6 h-6 text-gray-700 hover:text-amber-600 transition-colors" />
           </button>
 
           {/* Pagination Dots */}
-          <div className="absolute -bottom-8 md:-bottom-12 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          <div className="absolute bottom-0 md:-bottom-12 left-1/2 -translate-x-1/2 flex gap-2 z-20">
             {identities.map((_, index) => (
               <button
                 key={index}
@@ -231,7 +231,7 @@ export function AboutMe() {
           </div>
 
           {/* Page Indicator */}
-          <div className="absolute -bottom-8 md:-bottom-12 right-4 md:right-12 text-sm text-gray-500 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full border border-gray-200">
+          <div className="absolute bottom-0 md:-bottom-12 right-4 md:right-12 text-xs md:text-sm text-gray-500 bg-white/80 backdrop-blur-sm px-2 md:px-3 py-1 rounded-full border border-gray-200 z-20">
             {currentIndex + 1}/{identities.length}
           </div>
         </div>

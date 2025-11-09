@@ -18,14 +18,25 @@ export default function TopNav({
   activeSection,
   onSectionChange,
 }: TopNavProps) {
+  const handleSectionClick = (index: number) => {
+    onSectionChange(index)
+    // Scroll to section on mobile
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      const element = document.getElementById(sections[index].id)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }
+  }
+
   return (
-    <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-50">
-      <div className="bg-white rounded-full px-6 py-3 shadow-lg border border-gray-200 flex items-center gap-2">
+    <nav className="w-full flex justify-center">
+      <div className="bg-white rounded-full px-2 md:px-6 py-2 md:py-3 shadow-lg border border-gray-200 flex items-center gap-1 md:gap-2 overflow-x-auto hide-scrollbar">
         {sections.map((section, index) => (
           <button
             key={section.id}
-            onClick={() => onSectionChange(index)}
-            className="relative px-4 py-2 rounded-full transition-colors"
+            onClick={() => handleSectionClick(index)}
+            className="relative px-2 md:px-4 py-1.5 md:py-2 rounded-full transition-colors whitespace-nowrap flex-shrink-0"
           >
             {activeSection === index && (
               <motion.div
@@ -35,7 +46,7 @@ export default function TopNav({
               />
             )}
             <span
-              className={`relative z-10 font-medium transition-colors ${
+              className={`relative z-10 text-xs md:text-base font-medium transition-colors ${
                 activeSection === index
                   ? "text-amber-600"
                   : "text-gray-500"

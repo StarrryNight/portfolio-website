@@ -18,44 +18,80 @@ export default function Home() {
     { id: "projects", label: "Projects", component: <Projects /> },
   ]
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") {
-        setActiveSection((prev) => Math.max(0, prev - 1))
-      } else if (e.key === "ArrowRight") {
-        setActiveSection((prev) => Math.min(sections.length - 1, prev + 1))
-      }
-    }
 
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [sections.length])
+  // Prevent body scroll on mobile - sections should be viewport height only
+  useEffect(() => {
+    if (window.innerWidth >= 768) return // Only for mobile
+    
+    // Prevent body scrolling
+    document.body.style.overflow = 'hidden'
+    
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [])
 
   return (
-    <main className="h-screen w-screen overflow-hidden bg-background" style={{ transform: 'translateZ(0)' }}>
-      <TopNav
-        sections={sections}
-        activeSection={activeSection}
-        onSectionChange={setActiveSection}
-      />
-      <HorizontalPager 
-        activeIndex={activeSection}
-        onIndexChange={setActiveSection}
-      >
-        {sections.map((section) => (
-          <div 
-            key={section.id} 
-            className="h-full w-full flex-shrink-0 overflow-y-auto hide-scrollbar"
-            style={{
-              transform: 'translateZ(0)',
-              WebkitOverflowScrolling: 'touch',
-              touchAction: 'pan-y',
-            }}
-          >
-            {section.component}
-          </div>
-        ))}
-      </HorizontalPager>
-    </main>
+    <>
+      {/* Desktop: Horizontal pager with fixed nav */}
+      <main className="hidden md:block h-screen w-screen overflow-hidden bg-background" style={{ transform: 'translateZ(0)' }}>
+        <div className="fixed top-8 left-1/2 -translate-x-1/2 z-50">
+          <TopNav
+            sections={sections}
+            activeSection={activeSection}
+            onSectionChange={setActiveSection}
+          />
+        </div>
+        <HorizontalPager 
+          activeIndex={activeSection}
+          onIndexChange={setActiveSection}
+        >
+          {sections.map((section) => (
+            <div 
+              key={section.id} 
+              className="h-full w-full flex-shrink-0 overflow-y-auto hide-scrollbar"
+              style={{
+                transform: 'translateZ(0)',
+                WebkitOverflowScrolling: 'touch',
+                touchAction: 'pan-y',
+              }}
+            >
+              {section.component}
+            </div>
+          ))}
+        </HorizontalPager>
+      </main>
+
+      {/* Mobile: Vertical stacking with nav as first section */}
+      <main className="md:hidden w-screen h-screen bg-background overflow-hidden flex flex-col">
+        {/* Navigation as first section - seamless with content */}
+        <section className="w-full py-3 bg-white flex-shrink-0 z-50">
+          <TopNav
+            sections={sections}
+            activeSection={activeSection}
+            onSectionChange={setActiveSection}
+          />
+        </section>
+
+        {/* Sections - each takes remaining viewport height */}
+        <div className="relative flex-1 overflow-hidden">
+          {sections.map((section, index) => (
+            <div 
+              key={section.id} 
+              id={section.id}
+              className={`absolute inset-0 transition-transform duration-300 ease-in-out ${
+                index === activeSection 
+                  ? 'translate-x-0 z-10' 
+                  : index < activeSection 
+                  ? '-translate-x-full z-0' 
+                  : 'translate-x-full z-0'
+              }`}
+            >
+              {section.component}
+            </div>
+          ))}
+        </div>
+      </main>
+    </>
   )
 }

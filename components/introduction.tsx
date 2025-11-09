@@ -51,7 +51,7 @@ interface IntroductionProps {
 
 export function Introduction({ onNavigateToProjects }: IntroductionProps = {}) {
   return (
-    <section id="home" className="relative h-full w-full overflow-hidden flex items-center">
+    <section id="home" className="relative h-full md:h-full w-full overflow-hidden flex items-center py-0 md:py-0">
       <div className="container mx-auto z-10">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <motion.div
@@ -82,7 +82,7 @@ export function Introduction({ onNavigateToProjects }: IntroductionProps = {}) {
 
               <h2 className="text-2xl md:text-3xl font-medium">
                 I'm {" "}
-                <TypingEffect texts={["an Engineering Physics Student at UBC", "a CAD designer", "a Programmer", "a Tech Enthusiast"]} />
+                <TypingEffect texts={["an Engineering Physics Student", "a CAD designer", "a Software Developer", "a Tech Enthusiast"]} />
               </h2>
             </div>
 
