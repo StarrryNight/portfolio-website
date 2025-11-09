@@ -42,7 +42,7 @@ export default function MannequinScene({ identity }: MannequinSceneProps) {
           minAzimuthAngle={-Math.PI / 3}
           maxAzimuthAngle={Math.PI / 3}
           autoRotate
-          autoRotateSpeed={1.2}
+          autoRotateSpeed={2.5}
           enableDamping={true}
           dampingFactor={0.05}
           rotateSpeed={0.5}
