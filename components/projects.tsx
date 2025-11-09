@@ -25,6 +25,7 @@ type Project = {
   category: string
   liveUrl: string
   githubUrl: string
+  date: string
 }
 
 export function Projects() {
@@ -41,6 +42,7 @@ export function Projects() {
       category: "Software",
       liveUrl: "https://www.neuromap.link/",
       githubUrl: "#",
+      date: "2025",
     },
     {
       title: "Portfolio Website",
@@ -51,6 +53,7 @@ export function Projects() {
       category: "Software",
       liveUrl: "https://portfolio-website-jade-seven-38.vercel.app/",
       githubUrl: "#",
+      date: "2025",
     },
     {
       title: "Audio Spatial Transformer",
@@ -61,6 +64,7 @@ export function Projects() {
       category: "Software",
       liveUrl: "https://audio-spatial-transform-9kfye5z5t-starrrynights-projects.vercel.app/",
       githubUrl: "#",
+      date: "2025",
     },
     {
       title: "Tetris Practice Simulator",
@@ -71,46 +75,98 @@ export function Projects() {
       category: "Software",
       liveUrl: "https://play.unity.com/en/games/574578bb-2258-40e1-ab7c-89af79dbe7d5/tetris-practice",
       githubUrl: "#",
+      date: "2023",
     },
     {
       title: "Physics Engine",
       shortDescription: "A portfolio website with background and clicking effects",
       detailedDescription: "A modern, interactive portfolio website featuring dynamic Three.js backgrounds and engaging click effects. Built with Next.js and React, this website showcases my projects and experiences with a beautiful, responsive design.",
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/phy_eng.png",
       tags: ["React", "tailwind CSS", "Three.js", "JavaScript"],
       category: "Software",
-      liveUrl: "#",
+      liveUrl: "https://github.com/StarrryNight/Physics_Engine",
       githubUrl: "#",
+      date: "2025",
     },
-    {
-      title: "Portfolio Website",
-      shortDescription: "A portfolio website with background and clicking effects",
-      detailedDescription: "A modern, interactive portfolio website featuring dynamic Three.js backgrounds and engaging click effects. Built with Next.js and React, this website showcases my projects and experiences with a beautiful, responsive design.",
-      image: "/placeholder.svg?height=400&width=600",
-      tags: ["React", "tailwind CSS", "Three.js", "JavaScript"],
-      category: "Software",
-      liveUrl: "#",
-      githubUrl: "#",
-    },
+    
     {
       title: "Color Palatte Genertor",
       shortDescription: "Generate color gradients from an anchoring color using an exponential algorithm",
       detailedDescription: "A Python application built with Tkinter that generates beautiful color palettes and gradients from a single anchoring color. Uses an exponential algorithm to create smooth color transitions. The color theme of this website was selected using this generator.",
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/color.png",
       tags: ["Python", "Tkinter"],
       category: "Software",
+      liveUrl: "https://color-pallate-builder-website.vercel.app/",
+      githubUrl: "https://github.com/StarrryNight/Color-pallete-picker",
+      date: "2024",
+    },
+    {
+      title: "Acne Detector",
+      shortDescription:  "Detects and classifies acne types in skin images using deep learning.",
+      detailedDescription:  "Detects and classifies acne types in skin images using deep learning.",
+      image: "/acne.png",
+      tags: ["Deep learning", "AI", "Keras", "Scikit-learn"],
+      category: "Software",
+      liveUrl: "https://chromewebstore.google.com/detail/tabcloser/ockefngjdpppnlhgkebeleakbinmlmec?authuser=0&hl=en-US",
+      githubUrl: "https://github.com/StarrryNight/Acne",
+      date: "2025",
+    },
+    {
+      title: "Underwater Autonomous Claw",
+      shortDescription:  "A team-based engineering project where we designed a claw to pick up and move objects. I worked on the CAD and some C coding.",
+      detailedDescription:  "A team-based engineering project where we designed a claw to pick up and move objects. I worked on the CAD and some C coding.",
+      image: "/Claw.png",
+      tags: ["C", "SOLIDWORKS", "Metal Cutting", "3D Prototyping"],
+      category: "Hardware",
       liveUrl: "#",
       githubUrl: "#",
+      date: "2025",
+    },
+    
+    {
+      title: "Rage Detector",
+      shortDescription:  "A real-time emotion detection system designed to identify rage and anger in gaming contexts, particularly for reaction to bad randoms in Marvel Rivals and other competitive games.",
+      detailedDescription:  "A real-time emotion detection system designed to identify rage and anger in gaming contexts, particularly for reaction to bad randoms in Marvel Rivals and other competitive games.",
+      image: "/rage_icon.jpg",
+      tags: ["Deep learning", "OpenCV", "Keras", "Scikit-learn"],
+      category: "Software",
+      liveUrl: "#",
+      githubUrl: "https://github.com/StarrryNight/Rage-Detector",
+      date: "2025",
+    },
+    {
+      title: "Fantasy Football Point Predictor",
+      shortDescription:  "There are two versions, one using pytorch and one using keras and sklearn. Uses FPL datasets to predict player perforamances after a week. ",
+      detailedDescription:  "There are two versions, one using pytorch and one using keras and sklearn. Uses FPL datasets to predict player perforamances after a week. ",
+      image: "/fpl.png",
+      tags: ["Deep learning", "Pytorch", "OpenCV", "Keras", "Scikit-learn"],
+      category: "Software",
+      liveUrl: "#",
+      githubUrl: "https://github.com/StarrryNight/Pytorch-FPL",
+      date: "2025",
+    },
+    {
+      title: "F.U.R.I.N.A",
+      shortDescription: "F.U.R.I.N.A stands for Fantastic Unreal Responsive Intelligent Networked Assistant. This project is a cross-platform desktop AI assistant application, featuring a modern Electron/React frontend and a Python FastAPI backend that streams AI-generated responses.",
+      detailedDescription: "F.U.R.I.N.A stands for Fantastic Unreal Responsive Intelligent Networked Assistant. This project is a cross-platform desktop AI assistant application, featuring a modern Electron/React frontend and a Python FastAPI backend that streams AI-generated responses.",
+      image: "/furina_icon.png",
+      tags: ["HTML", "CSS", "JavaScript", "Chrome Development"],
+      category: "Software",
+      liveUrl: "#",
+      githubUrl: "https://github.com/StarrryNight/F.U.R.I.N.A",
+      date: "2025",
     },
     {
       title: "Tabs Deleting Extension",
-      shortDescription: "A Chrome extension for convenient tab management, published on Chrome Web Store",
-      detailedDescription: "A Google Chrome extension that simplifies tab management by providing convenient tab deletion features. Published on the Chrome Web Store, this extension helps users efficiently manage their browser tabs with intuitive controls and keyboard shortcuts.",
-      image: "/placeholder.svg?height=400&width=600",
-      tags: ["HTML", "CSS", "JavaScript", "Chrome Development"],
+      shortDescription:  "A google chrome extension that allows convenient tab deletion. Published on Chrome Webstore.",
+      detailedDescription:  "A google chrome extension that allows convenient tab deletion. Published on Chrome Webstore.",
+      image: "/tabs.png",
+      tags: ["Deep learning", "Pytorch", "OpenCV", "Keras", "Scikit-learn"],
       category: "Software",
-      liveUrl: "https://chromewebstore.google.com/detail/tabcloser/ockefngjdpppnlhgkebeleakbinmlmec?authuser=0&hl=en-US",
-      githubUrl: "#",
+      liveUrl:
+        "https://chromewebstore.google.com/detail/tabcloser/ockefngjdpppnlhgkebeleakbinmlmec?authuser=0&hl=en-US",
+      githubUrl: "https://github.com/StarrryNight/tabsCloser",
+      date: "2022",
     },
   ]
 
@@ -183,7 +239,10 @@ export function Projects() {
                   />
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-amber-600">{project.title}</CardTitle>
+                  <div className="flex items-center justify-between mb-1">
+                    <CardTitle className="text-amber-600">{project.title}</CardTitle>
+                    <span className="text-xs text-muted-foreground">{project.date}</span>
+                  </div>
                   <CardDescription className="line-clamp-2">{project.shortDescription}</CardDescription>
                 </CardHeader>
               </Card>
@@ -204,7 +263,10 @@ export function Projects() {
                     className="object-cover"
                   />
                 </div>
-                <DialogTitle className="text-2xl text-amber-600">{selectedProject.title}</DialogTitle>
+                <div className="flex items-center justify-between mb-2">
+                  <DialogTitle className="text-2xl text-amber-600">{selectedProject.title}</DialogTitle>
+                  <span className="text-sm text-muted-foreground">{selectedProject.date}</span>
+                </div>
                 <DialogDescription className="text-base pt-2">
                   {selectedProject.detailedDescription}
                 </DialogDescription>

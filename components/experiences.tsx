@@ -59,6 +59,9 @@ export function Experiences() {
       description: (
         <ul className="space-y-3">
           <li>
+            {"\u2022"} Obtained the Solidworks CSWA  Certification.
+          </li>
+          <li>
             {"\u2022"} Fulfilled printing and modeling requests from several UBC
             affiliated organizations.
           </li>
@@ -133,7 +136,7 @@ export function Experiences() {
       <div className="container mx-auto px-4 space-y-10">
         <div className="space-y-2 text-center">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">Experience</h2>
-          <h3 className="text-xl md:text-2xl font-semibold text-amber-600">My professional journey and the companies I've worked with</h3>
+          <h3 className="text-xl md:text-2xl font-semibold text-amber-600">My professional journey and the organizations I've worked with</h3>
           <p className="text-muted-foreground md:text-lg max-w-md mx-auto">
             Explore my work history and the valuable experiences I've gained along the way.
           </p>
