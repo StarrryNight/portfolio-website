@@ -107,7 +107,7 @@ export function AboutMe() {
   }
 
   return (
-    <section id="about" className="h-full w-full py-20 relative overflow-y-auto hide-scrollbar">
+    <section id="about" className="h-full w-full py-8 md:py-20 relative overflow-y-auto hide-scrollbar">
       {/* Background pattern */}
       <div className="absolute inset-0 dot-pattern opacity-5 -z-10"></div>
 
@@ -115,14 +115,14 @@ export function AboutMe() {
         ref={elementRef}
         className={`h-full container mx-auto px-4 animate-on-scroll ${isVisible ? 'animate-in' : ''}`}
       >
-        <div className="space-y-4 mb-6 text-center">
+        <div className="space-y-2 md:space-y-4 mb-4 md:mb-6 text-center">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">About Me</h2>
           <h3 className="text-xl md:text-2xl font-semibold text-amber-600">Get to know the different sides of who I am</h3>
         </div>
         <div className="w-full max-w-7xl mx-auto flex items-center relative">
           <div className="grid grid-cols-1 md:grid-cols-[45%_55%] gap-0 w-full items-center">
             {/* Left: 3D Scene */}
-            <div className="relative h-[500px] md:h-[600px]">
+            <div className="relative h-[300px] sm:h-[350px] md:h-[600px]">
               {identities.map((identity, index) => (
                 <div
                   key={identity.id}
@@ -136,7 +136,7 @@ export function AboutMe() {
             </div>
 
             {/* Right: Text Content */}
-            <div className="relative h-[500px] md:h-[600px]">
+            <div className="relative min-h-[300px] sm:min-h-[350px] md:h-[600px]">
               {identities.map((identity, index) => (
                 <div
                   key={identity.id}
@@ -148,14 +148,14 @@ export function AboutMe() {
                       : "opacity-0 translate-x-4 z-0"
                   }`}
                 >
-                  <div className="h-full flex flex-col justify-center space-y-6 px-4 md:px-8">
-                    <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-amber-600">
+                  <div className="h-full flex flex-col justify-center space-y-4 md:space-y-6 px-4 md:px-8">
+                    <h2 className="text-2xl md:text-5xl font-bold tracking-tighter text-amber-600">
                       {identity.title}
                     </h2>
-                    <p className="text-base md:text-lg text-gray-700 leading-relaxed max-w-2xl">
+                    <p className="text-sm md:text-lg text-gray-700 leading-relaxed max-w-2xl">
                       {identity.description}
                     </p>
-                    <div className="flex flex-wrap gap-2 mt-4">
+                    <div className="flex flex-wrap gap-2 mt-2 md:mt-4">
                       {identity.tags.map((tag) => (
                         <span
                           key={tag}
@@ -188,7 +188,7 @@ export function AboutMe() {
           </button>
 
           {/* Pagination Dots */}
-          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          <div className="absolute -bottom-8 md:-bottom-12 left-1/2 -translate-x-1/2 flex gap-2 z-10">
             {identities.map((_, index) => (
               <button
                 key={index}
@@ -204,7 +204,7 @@ export function AboutMe() {
           </div>
 
           {/* Page Indicator */}
-          <div className="absolute bottom-12 right-4 md:right-12 text-sm text-gray-500 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full border border-gray-200">
+          <div className="absolute -bottom-8 md:-bottom-12 right-4 md:right-12 text-sm text-gray-500 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full border border-gray-200">
             {currentIndex + 1}/{identities.length}
           </div>
         </div>

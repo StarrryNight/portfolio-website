@@ -38,7 +38,10 @@ export default function Home() {
         activeSection={activeSection}
         onSectionChange={setActiveSection}
       />
-      <HorizontalPager activeIndex={activeSection}>
+      <HorizontalPager 
+        activeIndex={activeSection}
+        onIndexChange={setActiveSection}
+      >
         {sections.map((section) => (
           <div 
             key={section.id} 
@@ -46,6 +49,7 @@ export default function Home() {
             style={{
               transform: 'translateZ(0)',
               WebkitOverflowScrolling: 'touch',
+              touchAction: 'pan-y',
             }}
           >
             {section.component}

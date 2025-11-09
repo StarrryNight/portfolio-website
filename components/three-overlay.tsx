@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react"
 import * as THREE from "three"
 import { gsap } from "gsap"
-import { Settings, X } from "lucide-react"
 
 // Lighter white and grey palette (no gold)
 const LIGHT_PALETTE = [
@@ -18,9 +17,8 @@ const LIGHT_PALETTE = [
 ]
 
 export function ThreeOverlay() {
-  const [showControls, setShowControls] = useState(false)
-  const [frequency, setFrequency] = useState(40) // Reduced default frequency for elegance
-  const [range, setRange] = useState(8)
+  const [frequency] = useState(40) // Reduced default frequency for elegance
+  const [range] = useState(8)
   const threeContainerRef = useRef<HTMLDivElement>(null)
 
   // Store scene and camera references for click effect
@@ -300,76 +298,6 @@ export function ThreeOverlay() {
         style={{ pointerEvents: "none" }}
       />
 
-      {/* Controls Button - Fixed position - updated to elegant style with gold accent */}
-      <button
-        onClick={() => setShowControls(!showControls)}
-        className="fixed bottom-6 right-6 z-50 bg-white hover:bg-gray-50 text-gray-800 p-3 rounded-full shadow-lg flex items-center justify-center border border-gray-200 hover:border-amber-300 transition-colors"
-        aria-label="Background Controls"
-      >
-        <Settings className="h-5 w-5" />
-      </button>
-
-      {/* Controls Panel - Fixed position - updated to elegant style with gold accents */}
-      {showControls && (
-        <div className="fixed bottom-20 right-6 z-50 bg-white/90 backdrop-blur-md border border-gray-200 w-64 rounded-lg shadow-lg">
-          <div className="p-4 space-y-4">
-            <div className="flex justify-between items-center border-b border-gray-100 pb-2">
-              <h3 className="text-sm text-gray-800 font-medium">Background Controls</h3>
-              <button
-                onClick={() => setShowControls(false)}
-                className="text-gray-500 hover:text-amber-500 transition-colors"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
-
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-xs text-gray-600">Frequency</span>
-                <span className="text-xs text-amber-600 font-medium">{frequency}</span>
-              </div>
-              <input
-                type="range"
-                min="0"
-                max="150"
-                value={frequency}
-                onChange={(e) => setFrequency(Number.parseInt(e.target.value))}
-                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer elegant-slider"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-xs text-gray-600">Range</span>
-                <span className="text-xs text-amber-600 font-medium">{range}</span>
-              </div>
-              <input
-                type="range"
-                min="0"
-                max="15"
-                step="0.5"
-                value={range}
-                onChange={(e) => setRange(Number.parseFloat(e.target.value))}
-                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer elegant-slider"
-              />
-            </div>
-
-            {/* Color palette visualization */}
-            <div className="mt-2">
-              <div className="text-xs text-gray-600 mb-2">Color Palette</div>
-              <div className="flex h-3 w-full rounded-md overflow-hidden border border-gray-200">
-                {LIGHT_PALETTE.map((color, index) => (
-                  <div key={index} className="flex-1" style={{ backgroundColor: color }}></div>
-                ))}
-              </div>
-            </div>
-
-            <div className="text-xs text-center text-amber-600 mt-2 font-medium">
-              Click anywhere for a burst effect!
-            </div>
-          </div>
-        </div>
-      )}
     </>
   )
 }
