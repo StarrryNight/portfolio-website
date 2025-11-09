@@ -80,7 +80,7 @@ export function Introduction({ onNavigateToProjects }: IntroductionProps = {}) {
 
               <h1 className="text-4xl md:text-6xl font-bold tracking-tighter gradient-text">Samuel Lau</h1>
 
-              <h2 className="text-2xl md:text-3xl font-medium">
+              <h2 className="text-lg md:text-3xl font-medium">
                 I'm {" "}
                 <TypingEffect texts={["an Engineering Physics Student", "a CAD designer", "a Software Developer", "a Tech Enthusiast"]} />
               </h2>
@@ -170,14 +170,6 @@ export function Introduction({ onNavigateToProjects }: IntroductionProps = {}) {
               <div className="text-xs text-muted-foreground">Projects</div>
             </motion.div>*/}
 
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.5 }}
-              className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-4 py-2 rounded-full shadow-lg shadow-amber-200"
-            >
-              Available for hire
-            </motion.div>
           </motion.div>
         </div>
 
